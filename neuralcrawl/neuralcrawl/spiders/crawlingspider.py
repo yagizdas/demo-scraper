@@ -15,13 +15,15 @@ class MyCrawlerSpider(CrawlSpider):
 
     def parse_item(self, response):
         title = response.css('div.banner div.info h1::text').get()
-        location = response.css('div.banner div.location span::text').get().strip()
+        start_location = response.css('div.banner div.location span:nth-of-type(1)::text').get().strip()
+        end_location = response.css('div.banner div.location span:nth-of-type(2)::text').get().strip()
         date = response.css('div.banner div.labels li:nth-of-type(2) span::text').get().strip()
         duration = response.css('div.banner div.labels li:nth-of-type(1) span::text').get().strip()
 
         yield {
             'title': title,
-            'location': location,
+            'start_location': start_location,
+            'end_location': end_location,
             'date': date,
             'duration': duration
         }
